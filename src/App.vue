@@ -61,7 +61,7 @@ export default {
   computed: {
     imageSrc() {
       if (this.files[0]) {
-        return this.files[0].src + `?v=${this.hash}`;
+        return this.files[0].src + `#v=${this.hash}`;
       }
       return `https://vuejs.org/images/logo.png?v=${this.hash}`;
     },
@@ -85,6 +85,12 @@ export default {
     transform: scale(0.95);
     filter: brightness(0.5);
   }
+}
+
+@mixin noTouchOrSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 @mixin btn_style {
@@ -151,6 +157,7 @@ body {
       margin-right: 4px;
       @include btn_style;
       @include activeScale;
+      @include noTouchOrSelect;
       > input {
         position: absolute;
         width: 0;
@@ -165,6 +172,7 @@ body {
       background: rgb(10, 206, 163);
       @include btn_style;
       @include activeScale;
+      @include noTouchOrSelect;
     }
   }
 
