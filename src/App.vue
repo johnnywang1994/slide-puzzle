@@ -1,22 +1,107 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="puzzle-wrapper">
+      <slide-puzzle
+        :src="imageSrc"
+        @card-drop="onUserMovePuzzle"
+        @card-touchend="onUserMovePuzzle"
+      />
+    </div>
+    <p>* User steps: {{ count }}</p>
+
+    <!-- Control -->
+    <div class="panel">
+      <label class="upload-label" touchstart="">
+        <span>Upload</span>
+        <input type="file" @change="uploadFile" />
+      </label>
+      <div class="reset-btn" @click="resetPuzzle" touchstart="">
+        <span>Reset</span>
+      </div>
+    </div>
+    <h1>Vue Slide Puzzle</h1>
+    <p>
+      A simple component for creating a puzzlize image
+      <br>
+      <a href="https://github.com/johnnywang1994/vue-slide-puzzle" target="_blank">vue-slide-puzzle documentation</a>.
+    </p>
+    <h3>Essential Links</h3>
+    <ul>
+      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Vue Core Docs</a></li>
+      <li><a href="https://github.com/johnnywang1994/slide-puzzle" target="_blank" rel="noopener">Live Demo Source Code(Github)</a></li>
+    </ul>
+
+    <!-- Footer -->
+    <footer>
+      Copyright &copy; 2020-present, Johnny Wang
+    </footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SlidePuzzle from './components/SlidePuzzle.vue'
+import ImageUpload from './components/imageUpload'
 
 export default {
   name: 'App',
+  mixins: [ImageUpload],
   components: {
-    HelloWorld
-  }
-}
+    SlidePuzzle,
+  },
+  data() {
+    return {
+      uploadSetting: {
+        number: 1,
+        size: 10485760, // 10mb
+      },
+      hash: 0, // hash to trigger puzzle reload
+      count: 0,
+    };
+  },
+  computed: {
+    imageSrc() {
+      if (this.files[0]) {
+        return this.files[0].src + `?v=${this.hash}`;
+      }
+      return `https://vuejs.org/images/logo.png?v=${this.hash}`;
+    },
+  },
+  methods: {
+    resetPuzzle() {
+      this.hash = Math.random();
+    },
+    onUserMovePuzzle() {
+      this.count++;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
+@mixin activeScale {
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+  &:active {
+    transform: scale(0.95);
+    filter: brightness(0.5);
+  }
+}
+
+@mixin btn_style {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,5 +109,73 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  h3 {
+    margin: 40px 0 0;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  a {
+    color: #42b983;
+  }
+
+  .puzzle-wrapper {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    .slide-puzzle {
+      background: transparent;
+      .card {
+        border: 1px solid black;
+        &.pin {
+          background: #888 !important;
+        }
+      }
+    }
+  }
+
+  .panel {
+    margin: 8px 0;
+    .upload-label {
+      position: relative;
+      color: #fff;
+      border: 1px solid rgb(0, 123, 206);
+      background: rgb(0, 153, 255);
+      margin-right: 4px;
+      @include btn_style;
+      @include activeScale;
+      > input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+    .reset-btn {
+      color: #fff;
+      border: 1px solid rgb(0, 163, 128);
+      background: rgb(10, 206, 163);
+      @include btn_style;
+      @include activeScale;
+    }
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    padding: 4px 0;
+    font-weight: 700;
+    background: #333;
+  }
 }
 </style>
