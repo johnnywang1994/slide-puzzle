@@ -69,6 +69,7 @@ export default {
   methods: {
     resetPuzzle() {
       this.hash = Math.random();
+      this.count = 0;
     },
     onUserMovePuzzle() {
       this.count++;
