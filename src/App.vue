@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="puzzle-wrapper">
+    <div class="puzzle-wrapper" :key="`puzzle_${hash}`">
       <slide-puzzle
         :src="imageSrc"
         @card-drop="onUserMovePuzzle"
@@ -54,16 +54,16 @@ export default {
         number: 1,
         size: 10485760, // 10mb
       },
-      hash: 0, // hash to trigger puzzle reload
+      hash: 1, // hash to trigger puzzle reload
       count: 0,
     };
   },
   computed: {
     imageSrc() {
       if (this.files[0]) {
-        return this.files[0].src + `#v=${this.hash}`;
+        return this.files[0].src;
       }
-      return `https://vuejs.org/images/logo.png?v=${this.hash}`;
+      return `https://vuejs.org/images/logo.png`;
     },
   },
   methods: {
@@ -77,6 +77,7 @@ export default {
     onFileUpload(e) {
       this.files = [];
       this.uploadFile(e);
+      this.resetPuzzle();
     }
   },
 };
