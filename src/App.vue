@@ -13,7 +13,7 @@
     <div class="panel">
       <label class="upload-label" touchstart="">
         <span>Upload</span>
-        <input type="file" @change="uploadFile" />
+        <input type="file" @change="onFileUpload" />
       </label>
       <div class="reset-btn" @click="resetPuzzle" touchstart="">
         <span>Reset</span>
@@ -74,6 +74,10 @@ export default {
     onUserMovePuzzle() {
       this.count++;
     },
+    onFileUpload(e) {
+      this.files = [];
+      this.uploadFile(e);
+    }
   },
 };
 </script>
