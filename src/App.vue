@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import SlidePuzzle from './components/SlidePuzzle.vue'
+import SlidePuzzle from 'vue-slide-puzzle'
 import ImageUpload from './components/imageUpload'
 
 export default {
