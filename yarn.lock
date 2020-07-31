@@ -8297,10 +8297,10 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-slide-puzzle@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vue-slide-puzzle/-/vue-slide-puzzle-1.0.4.tgz#5cd65183d53023c084f65342f5d56d66f012dc99"
-  integrity sha512-/76mF3x878OcCnWJ3vsz3z22YGUhW105pyp2PSKT3plxF4OJHuwWBYdzVxat2jt6jch8lg1erZQQTaJhdeBgdw==
+vue-slide-puzzle@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-slide-puzzle/-/vue-slide-puzzle-1.0.5.tgz#9b5456a73c0a6b2ea8b66abdae0d665a1f05f905"
+  integrity sha512-twc6lXPtmtupJQWDh2T3F0a28q5BSc8NaZ2Y/+PngLqyLVmsf5Yi0sLqgSt4qiIpoHaqBdDP53po3S2nCwm3fw==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
