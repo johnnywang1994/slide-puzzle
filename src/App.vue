@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="puzzle-wrapper">
+    <div class="puzzle-wrapper" :key="`puzzle_${hash}`">
       <slide-puzzle
         :src="imageSrc"
         @card-drop="onUserMovePuzzle"
@@ -13,7 +13,7 @@
     <div class="panel">
       <label class="upload-label" touchstart="">
         <span>Upload</span>
-        <input type="file" @change="uploadFile" />
+        <input type="file" @change="onFileUpload" />
       </label>
       <div class="reset-btn" @click="resetPuzzle" touchstart="">
         <span>Reset</span>
@@ -54,16 +54,16 @@ export default {
         number: 1,
         size: 10485760, // 10mb
       },
-      hash: 0, // hash to trigger puzzle reload
+      hash: 1, // hash to trigger puzzle reload
       count: 0,
     };
   },
   computed: {
     imageSrc() {
       if (this.files[0]) {
-        return this.files[0].src + `#v=${this.hash}`;
+        return this.files[0].src;
       }
-      return `https://vuejs.org/images/logo.png?v=${this.hash}`;
+      return `https://vuejs.org/images/logo.png`;
     },
   },
   methods: {
@@ -74,6 +74,11 @@ export default {
     onUserMovePuzzle() {
       this.count++;
     },
+    onFileUpload(e) {
+      this.files = [];
+      this.uploadFile(e);
+      this.resetPuzzle();
+    }
   },
 };
 </script>
