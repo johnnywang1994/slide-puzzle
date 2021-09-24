@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="puzzle-wrapper" :key="`puzzle_${hash}`">
-      <slide-puzzle
+      <VueSlidePuzzle
         :src="imageSrc"
         @card-drop="onUserMovePuzzle"
         @card-touchend="onUserMovePuzzle"
@@ -39,14 +39,15 @@
 </template>
 
 <script>
-import SlidePuzzle from 'vue-slide-puzzle'
+import { VueSlidePuzzle } from 'vue-slide-puzzle'
+import 'vue-slide-puzzle/dist/VueSlidePuzzle.css';
 import ImageUpload from './components/imageUpload'
 
 export default {
   name: 'App',
   mixins: [ImageUpload],
   components: {
-    SlidePuzzle,
+    VueSlidePuzzle,
   },
   data() {
     return {
